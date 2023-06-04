@@ -1,0 +1,20 @@
+const XLSX = require('xlsx');: 
+Esta linha importa a biblioteca XLSX, que é usada para trabalhar com planilhas do Microsoft Excel em JavaScript.
+
+const workbook = XLSX.readFile('./planilhas/cadastro-teste.xlsx');: 
+Essa linha lê o arquivo cadastro-teste.xlsx no diretório ./planilhas/ e cria um objeto Workbook XLSX, que é uma representação de todo o conteúdo da planilha.
+
+const sheet_name_list = workbook.SheetNames;: 
+Essa linha obtém uma lista dos nomes das planilhas dentro do arquivo Workbook.
+
+const data = XLSX.utils.sheet_to_json(workbook.Sheets[sheet_name_list[0]], { header: 1 });: 
+Essa linha converte a primeira planilha no Workbook em um objeto JavaScript, onde cada linha da planilha é um objeto dentro de um array. O segundo parâmetro {header: 1} indica que a primeira linha da planilha contém os títulos das colunas.
+
+const result = data.filter(row => row.some(cell => !!cell));: 
+Essa linha remove todas as linhas da planilha que contêm apenas células vazias. A função Array.prototype.filter() é usada para criar um novo array que contém apenas as linhas que passam no teste definido na função de retorno. A função Array.prototype.some() é usada para verificar se pelo menos uma célula na linha não é vazia. A expressão !!cell é usada para converter o valor da célula em um booleano.
+
+result.shift();: 
+Essa linha remove a primeira linha do array result, que contém os títulos das colunas.
+
+console.log(result);: 
+Essa linha exibe o array result no console do navegador ou no terminal do Node.js, dependendo de onde o código está sendo executado.
